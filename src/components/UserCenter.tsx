@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, ChevronRight, Camera, Edit, MapPin, Calendar, Heart, MessageCircle, Grid, LogOut, CreditCard, Bell, HelpCircle, Shield, User, Book } from 'lucide-react';
+import { Settings, ChevronRight, Camera, Edit, MapPin, Heart, MessageCircle, LogOut, CreditCard, Bell, HelpCircle, Shield, Book } from 'lucide-react';
 
 const ProfilePage = () => {
   const [activeTab, setActiveTab] = useState('posts');

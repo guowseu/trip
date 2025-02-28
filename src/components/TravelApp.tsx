@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Map, Menu, Plus, ChevronRight, Clock, Camera, Home, Compass, Book, User, Heart, Share2, Zap, Globe, Sparkles, TrendingUp } from 'lucide-react';
+import { Map, ChevronRight, Home, Compass, Book, User } from 'lucide-react';
 import TravelPlan from './TravelPlan';
 import TravelRecord from './TravelRecord';
 import UserCenter from './UserCenter';
@@ -8,19 +8,19 @@ import TravelPlanResult from './TravelPlanResult';
 // 主应用组件
 const TravelApp = () => {
   const [activeTab, setActiveTab] = useState('home');
-  const [weatherData, setWeatherData] = useState({ temp: '24°C', condition: '晴朗' });
-  const [userPreferences, setUserPreferences] = useState({
+  const [weatherData] = useState({ temp: '24°C', condition: '晴朗' });
+  const [userPreferences] = useState({
     preferredDestinations: ['东方汉尼拔', '福尔摩斯探险', '华山论剑'],
     travelStyle: '非遗之路',
     budget: '中等'
   });
 
-  const [upcomingTrips, setUpcomingTrips] = useState([
+  const [upcomingTrips] = useState([
     { id: 1, destination: '华山论剑', dateRange: '2025.03.10 - 2025.03.15', days: 5 },
     { id: 2, destination: '丝绸之路', dateRange: '2025.05.20 - 2025.05.27', days: 7 }
   ]);
 
-  const [travelRecords, setTravelRecords] = useState([
+  const [travelRecords] = useState([
     { id: 1, destination: '东方汉尼拔', date: '2025.01' },
     { id: 2, destination: '福尔摩斯探险', date: '2024.11' }
   ]);
@@ -277,7 +277,7 @@ const HomePage = ({
         {/* 内容 */}
         <div className="relative z-10 p-4 text-white">
           <div className="flex items-center mb-2">
-            <Sparkles size={20} className="mr-2" />
+            <Map size={20} className="mr-2" />
             <h2 className="font-semibold">AI智能旅行规划</h2>
           </div>
           <p className="text-sm mb-3 text-left">基于你的偏好，为你量身定制完美行程</p>

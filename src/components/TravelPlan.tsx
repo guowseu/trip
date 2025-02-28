@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Map, Menu, Plus, ChevronRight, Clock, Camera, Home, Compass, Book, User, Search, Filter, ArrowLeft, Sparkles } from 'lucide-react';
+import { Calendar, Map, Home, Compass, Book, User, Search, ArrowLeft, Sparkles, Clock } from 'lucide-react';
 import TravelPlanResult from './TravelPlanResult';
 
 // 主应用组件

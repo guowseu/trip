@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, MapPin, Heart, MessageCircle, Share2, ArrowLeft, Grid, List, Plus, Camera, Search, Filter, Upload, X, Image, ChevronDown, Sparkles, Edit } from 'lucide-react';
+import { Calendar, MapPin, Heart, MessageCircle, Share2, ArrowLeft, List, Plus, Camera, Search, Filter, X, Sparkles, Edit, Grid } from 'lucide-react';
 
 const RecordPage = () => {
   const [viewMode, setViewMode] = useState('grid');

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowLeft, Share2, Download, Calendar, MapPin, Clock, Camera, ChevronRight, Plus } from 'lucide-react';
 
 // 旅行计划结果页面
