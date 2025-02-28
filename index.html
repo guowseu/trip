@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>旅行助手</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide-react@latest"></script>
+  <style>
+    /* 基础样式 */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #f9fafb;
+      color: #333;
+    }
+    
+    /* Tailwind-like 工具类 */
+    .bg-gray-50 { background-color: #f9fafb; }
+    .bg-white { background-color: white; }
+    .bg-blue-500 { background-color: #3b82f6; }
+    .bg-blue-100 { background-color: #dbeafe; }
+    .bg-blue-50 { background-color: #eff6ff; }
+    .bg-green-100 { background-color: #d1fae5; }
+    .bg-green-50 { background-color: #ecfdf5; }
+    .bg-gray-200 { background-color: #e5e7eb; }
+    .bg-black { background-color: black; }
+
+    .text-white { color: white; }
+    .text-blue-500 { color: #3b82f6; }
+    .text-blue-600 { color: #2563eb; }
+    .text-gray-500 { color: #6b7280; }
+    .text-gray-600 { color: #4b5563; }
+    .text-gray-800 { color: #1f2937; }
+    .text-green-500 { color: #10b981; }
+    .text-green-600 { color: #059669; }
+
+    .border-gray-100 { border-color: #f3f4f6; }
+    .border-gray-200 { border-color: #e5e7eb; }
+    .border { border-width: 1px; }
+    .border-t { border-top-width: 1px; }
+
+    .rounded-lg { border-radius: 0.5rem; }
+    .rounded-xl { border-radius: 0.75rem; }
+    .rounded-full { border-radius: 9999px; }
+
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .flex-1 { flex: 1 1 0%; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .justify-between { justify-content: space-between; }
+    .justify-around { justify-content: space-around; }
+
+    .h-screen { height: 100vh; }
+    .h-16 { height: 4rem; }
+    .h-24 { height: 6rem; }
+    .w-full { width: 100%; }
+
+    .p-4 { padding: 1rem; }
+    .p-2 { padding: 0.5rem; }
+    .px-4 { padding-left: 1rem; padding-right: 1rem; }
+    .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+    .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+    .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .pb-16 { padding-bottom: 4rem; }
+
+    .m-1 { margin: 0.25rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mb-3 { margin-bottom: 0.75rem; }
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mr-3 { margin-right: 0.75rem; }
+    .mr-1 { margin-right: 0.25rem; }
+    .ml-1 { margin-left: 0.25rem; }
+    .mt-1 { margin-top: 0.25rem; }
+
+    .text-2xl { font-size: 1.5rem; }
+    .text-lg { font-size: 1.125rem; }
+    .text-sm { font-size: 0.875rem; }
+    .text-xs { font-size: 0.75rem; }
+
+    .font-bold { font-weight: 700; }
+    .font-semibold { font-weight: 600; }
+    .font-medium { font-weight: 500; }
+
+    .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+    .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+    .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+
+    .overflow-hidden { overflow: hidden; }
+    .overflow-y-auto { overflow-y: auto; }
+
+    .grid { display: grid; }
+    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .gap-3 { gap: 0.75rem; }
+
+    .fixed { position: fixed; }
+    .absolute { position: absolute; }
+    .relative { position: relative; }
+    .bottom-0 { bottom: 0; }
+    .bottom-2 { bottom: 0.5rem; }
+    .left-2 { left: 0.5rem; }
+
+    .bg-opacity-50 { background-opacity: 0.5; }
+    
+    /* 自定义样式 */
+    .trip-card {
+      border-radius: 12px;
+      background-color: white;
+      padding: 16px;
+      margin-bottom: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid #f3f4f6;
+    }
+    
+    .trip-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      margin-right: 12px;
+    }
+    
+    .blue-icon {
+      background-color: #dbeafe;
+      color: #3b82f6;
+    }
+    
+    .green-icon {
+      background-color: #d1fae5;
+      color: #10b981;
+    }
+    
+    .trip-tag {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    
+    .blue-tag {
+      background-color: #eff6ff;
+      color: #2563eb;
+    }
+    
+    .green-tag {
+      background-color: #ecfdf5;
+      color: #059669;
+    }
+    
+    .view-all {
+      color: #3b82f6;
+      font-size: 14px;
+      font-weight: 400;
+    }
+    
+    .view-details {
+      color: #3b82f6;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0;
+    }
+    
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .plan-card {
+      background-color: #3b82f6;
+      border-radius: 12px;
+      padding: 16px;
+      color: white;
+      margin-bottom: 24px;
+    }
+    
+    .plan-button {
+      background-color: white;
+      color: #3b82f6;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .record-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border: 1px solid #f3f4f6;
+    }
+    
+    .record-image {
+      height: 96px;
+      background-color: #e5e7eb;
+      position: relative;
+    }
+    
+    .record-date {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      background-color: rgba(0,0,0,0.5);
+      color: white;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    
+    .record-title {
+      padding: 8px;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #6b7280;
+      text-decoration: none;
+      font-size: 12px;
+    }
+    
+    .nav-item.active {
+      color: #3b82f6;
+    }
+    
+    .nav-icon {
+      margin-bottom: 4px;
+    }
+    
+    .main-content {
+      padding: 16px;
+      padding-bottom: 80px;
+    }
+    
+    .header {
+      margin-bottom: 24px;
+    }
+    
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      margin-top: 0;
+    }
+    
+    .header p {
+      color: #6b7280;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    // 创建图标组件
+    const Icon = ({ name, size = 24, className = "" }) => {
+      const LucideIcon = lucide.icons[name];
+      return React.createElement(LucideIcon, { size, className });
+    };
+
+    // 首页组件
+    const HomePage = () => (
+      <div className="main-content">
+        <div className="header">
+          <h1>你好，旅行者</h1>
+          <p>开始规划你的下一次冒险吧！</p>
+        </div>
+        
+        {/* 智能规划卡片 */}
+        <div className="plan-card">
+          <h2 className="text-lg font-semibold mb-2">智能旅行规划</h2>
+          <p className="text-sm mb-3">描述你的旅行梦想，AI将为你规划完美行程</p>
+          <button className="plan-button">
+            开始规划 <Icon name="ChevronRight" size={18} className="ml-1" />
+          </button>
+        </div>
+        
+        {/* 即将开始的旅行 */}
+        <div className="mb-6">
+          <div className="section-header">
+            <h2 className="section-title">即将开始的旅行</h2>
+            <a href="#" className="view-all">查看全部</a>
+          </div>
+          
+          <div className="trip-card">
+            <div className="flex items-center mb-3">
+              <div className="trip-icon blue-icon">
+                <Icon name="Map" size={24} />
+              </div>
+              <div>
+                <h3 className="font-medium">东京之旅</h3>
+                <p className="text-xs text-gray-500 flex items-center">
+                  <Icon name="Calendar" size={12} className="mr-1" /> 2025.03.10 - 2025.03.15
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <span className="trip-tag blue-tag">5天行程</span>
+              <a href="#" className="view-details">查看详情</a>
+            </div>
+          </div>
+          
+          <div className="trip-card">
+            <div className="flex items-center mb-3">
+              <div className="trip-icon green-icon">
+                <Icon name="Map" size={24} />
+              </div>
+              <div>
+                <h3 className="font-medium">巴黎之旅</h3>
+                <p className="text-xs text-gray-500 flex items-center">
+                  <Icon name="Calendar" size={12} className="mr-1" /> 2025.05.20 - 2025.05.27
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-between">
+              <span className="trip-tag green-tag">7天行程</span>
+              <a href="#" className="view-details">查看详情</a>
+            </div>
+          </div>
+        </div>
+        
+        {/* 我的旅行记录 */}
+        <div>
+          <div className="section-header">
+            <h2 className="section-title">我的旅行记录</h2>
+            <a href="#" className="view-all">查看全部</a>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3">
+            <div className="record-card">
+              <div className="record-image">
+                <div className="record-date">2025.01</div>
+              </div>
+              <div className="record-title">香港美食之旅</div>
+            </div>
+            
+            <div className="record-card">
+              <div className="record-image">
+                <div className="record-date">2024.11</div>
+              </div>
+              <div className="record-title">京都赏枫之旅</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // 其他页面组件
+    const PlanPage = () => (
+      <div className="main-content">
+        <h1 className="text-2xl font-bold">旅行规划</h1>
+      </div>
+    );
+    
+    const RecordPage = () => (
+      <div className="main-content">
+        <h1 className="text-2xl font-bold">旅行记录</h1>
+      </div>
+    );
+    
+    const ProfilePage = () => (
+      <div className="main-content">
+        <h1 className="text-2xl font-bold">个人中心</h1>
+      </div>
+    );
+
+    // 主应用组件
+    const TravelApp = () => {
+      const [activeTab, setActiveTab] = React.useState('home');
+      
+      // 渲染当前活动的页面内容
+      const renderContent = () => {
+        switch (activeTab) {
+          case 'home':
+            return <HomePage />;
+          case 'plan':
+            return <PlanPage />;
+          case 'record':
+            return <RecordPage />;
+          case 'profile':
+            return <ProfilePage />;
+          default:
+            return <HomePage />;
+        }
+      };
+      
+      return (
+        <div className="app">
+          {/* 主内容区域 */}
+          <div className="content">
+            {renderContent()}
+          </div>
+          
+          {/* 底部导航栏 */}
+          <div className="nav-bar">
+            <a 
+              className={`nav-item ${activeTab === 'home' ? 'active' : ''}`}
+              onClick={() => setActiveTab('home')}
+            >
+              <Icon name="Home" size={24} className="nav-icon" />
+              <span>首页</span>
+            </a>
+            <a 
+              className={`nav-item ${activeTab === 'plan' ? 'active' : ''}`}
+              onClick={() => setActiveTab('plan')}
+            >
+              <Icon name="Compass" size={24} className="nav-icon" />
+              <span>规划</span>
+            </a>
+            <a 
+              className={`nav-item ${activeTab === 'record' ? 'active' : ''}`}
+              onClick={() => setActiveTab('record')}
+            >
+              <Icon name="Book" size={24} className="nav-icon" />
+              <span>记录</span>
+            </a>
+            <a 
+              className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`}
+              onClick={() => setActiveTab('profile')}
+            >
+              <Icon name="User" size={24} className="nav-icon" />
+              <span>我的</span>
+            </a>
+          </div>
+        </div>
+      );
+    };
+
+    // 渲染应用
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<TravelApp />);
+  </script>
+</body>
+</html>
