@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Share2, Download, Calendar, MapPin, Clock, Camera, ChevronRight, Plus } from 'lucide-react';
+import LocalImage from './LocalImage';
 
 // 旅行计划结果页面
 const TravelPlanResult = ({ onBack, tripId, onViewResult }: { onBack?: () => void; tripId?: number; onViewResult?: (tripId: any) => void }) => {

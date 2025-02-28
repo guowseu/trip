@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, Map, Home, Compass, Book, User, Search, ArrowLeft, Sparkles, Clock } from 'lucide-react';
 import TravelPlanResult from './TravelPlanResult';
+import LocalImage from './LocalImage';
 
 // 主应用组件
 const TravelPlan = ({ onViewResult }: { onViewResult?: (tripId: any) => void }) => {
@@ -144,7 +145,7 @@ const PlannerHome = ({ onCreateAI }: PlannerHomeProps) => (
     <div className="mb-8">
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-white rounded-xl overflow-hidden shadow-sm relative h-40">
-          <img 
+          <LocalImage 
             src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=2487&auto=format&fit=crop"
             alt="东京" 
             className="w-full h-full object-cover"
@@ -156,7 +157,7 @@ const PlannerHome = ({ onCreateAI }: PlannerHomeProps) => (
         </div>
         
         <div className="bg-white rounded-xl overflow-hidden shadow-sm relative h-40">
-          <img 
+          <LocalImage 
             src="https://images.unsplash.com/photo-1534008897995-27a23e859048?q=80&w=2670&auto=format&fit=crop"
             alt="巴黎" 
             className="w-full h-full object-cover"
@@ -172,7 +173,7 @@ const PlannerHome = ({ onCreateAI }: PlannerHomeProps) => (
     {/* AI旅行规划 */}
     <div className="bg-gradient-to-r from-blue-500 to-blue-600 rounded-xl p-5 mb-6 relative overflow-hidden">
       <div className="absolute right-0 top-0 w-32 h-32 opacity-10">
-        <img 
+        <LocalImage 
           src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?q=80&w=2035&auto=format&fit=crop" 
           alt="Travel" 
           className="w-full h-full object-cover"
@@ -249,7 +250,7 @@ const PlanCard = ({ title, date, days, color, progress, image }: PlanCardProps) 
       {/* 背景图片 */}
       {image && (
         <div className="absolute inset-0 opacity-10">
-          <img src={image} alt={title} className="w-full h-full object-cover" />
+          <LocalImage src={image} alt={title} className="w-full h-full object-cover" />
         </div>
       )}
       
@@ -313,7 +314,7 @@ const AIPlanner = ({ onBack, onCreatePlan, onViewResult }: AIPlannerProps) => (
     
     {/* 顶部灵感图片区域 */}
     <div className="rounded-xl overflow-hidden mb-6 relative h-40">
-      <img 
+      <LocalImage 
         src="https://images.unsplash.com/photo-1488085061387-422e29b40080?q=80&w=1000&auto=format&fit=crop" 
         alt="旅行灵感" 
         className="w-full h-full object-cover"

@@ -4,6 +4,7 @@ import TravelPlan from './TravelPlan';
 import TravelRecord from './TravelRecord';
 import UserCenter from './UserCenter';
 import TravelPlanResult from './TravelPlanResult';
+import LocalImage from './LocalImage';
 
 // 主应用组件
 const TravelApp = () => {
@@ -266,7 +267,7 @@ const HomePage = ({
       }`}>
         {/* 背景图片 */}
         <div className="absolute inset-0 z-0">
-          <img 
+          <LocalImage 
             src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop" 
             alt="旅行背景" 
             className="w-full h-full object-cover"
@@ -360,12 +361,12 @@ const HomePage = ({
                 <div className="grid grid-cols-2 gap-2 mt-2">
                   {idx === 0 ? (
                     <>
-                      <img 
+                      <LocalImage 
                         src="https://images.unsplash.com/photo-1576675466969-38eeae4b41f6?q=80&w=300&auto=format&fit=crop" 
                         alt="香港美食" 
                         className="w-full h-24 object-cover rounded-lg"
                       />
-                      <img 
+                      <LocalImage 
                         src="https://images.unsplash.com/photo-1536599018102-9f803c140fc1?q=80&w=300&auto=format&fit=crop" 
                         alt="香港街景" 
                         className="w-full h-24 object-cover rounded-lg"
@@ -373,12 +374,12 @@ const HomePage = ({
                     </>
                   ) : (
                     <>
-                      <img 
+                      <LocalImage 
                         src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=300&auto=format&fit=crop" 
                         alt="福尔摩斯探险" 
                         className="w-full h-24 object-cover rounded-lg"
                       />
-                      <img 
+                      <LocalImage 
                         src="https://images.unsplash.com/photo-1519791883288-dc8bd696e667?q=80&w=300&auto=format&fit=crop" 
                         alt="福尔摩斯探险" 
                         className="w-full h-24 object-cover rounded-lg"

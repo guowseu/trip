@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Calendar, MapPin, Heart, MessageCircle, Share2, ArrowLeft, List, Plus, Camera, Search, Filter, X, Sparkles, Edit, Grid } from 'lucide-react';
+import { Search, Plus, Camera, MapPin, Star, Calendar, ArrowLeft, ArrowRight, Edit, Trash2, Heart, Filter, MessageCircle, Share2, Grid, List, Sparkles, X } from 'lucide-react';
+import LocalImage from './LocalImage';
 
+// 旅行记录组件
 const RecordPage = () => {
   const [viewMode, setViewMode] = useState('grid');
   const [showDetail, setShowDetail] = useState(false);
@@ -82,28 +84,28 @@ const RecordPage = () => {
               >
                 <div className="h-32 bg-gray-200 relative">
                   {item === 1 && (
-                    <img 
+                    <LocalImage 
                       src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=300&auto=format&fit=crop" 
                       alt="东京美食" 
                       className="w-full h-full object-cover"
                     />
                   )}
                   {item === 2 && (
-                    <img 
+                    <LocalImage 
                       src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=300&auto=format&fit=crop" 
                       alt="东京街景" 
                       className="w-full h-full object-cover"
                     />
                   )}
                   {item === 3 && (
-                    <img 
+                    <LocalImage 
                       src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=300&auto=format&fit=crop" 
                       alt="东京寺庙" 
                       className="w-full h-full object-cover"
                     />
                   )}
                   {item === 4 && (
-                    <img 
+                    <LocalImage 
                       src="https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?q=80&w=300&auto=format&fit=crop" 
                       alt="东京夜景" 
                       className="w-full h-full object-cover"
@@ -140,21 +142,21 @@ const RecordPage = () => {
               >
                 <div className="w-20 h-20 bg-gray-200 rounded-lg mr-3">
                   {item === 1 && (
-                    <img 
-                      src="https://images.unsplash.com/photo-1493976040374-85c8e12f92ce?q=80&w=300&auto=format&fit=crop" 
+                    <LocalImage 
+                      src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=300&auto=format&fit=crop" 
                       alt="京都风景" 
                       className="w-full h-full object-cover rounded-lg"
                     />
                   )}
                   {item === 2 && (
-                    <img 
+                    <LocalImage 
                       src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=300&auto=format&fit=crop" 
                       alt="京都寺庙" 
                       className="w-full h-full object-cover rounded-lg"
                     />
                   )}
                   {item === 3 && (
-                    <img 
+                    <LocalImage 
                       src="https://images.unsplash.com/photo-1493997181344-712f2f19d87a?q=80&w=300&auto=format&fit=crop" 
                       alt="京都神社" 
                       className="w-full h-full object-cover rounded-lg"
@@ -367,7 +369,7 @@ const AILogCreator = ({ onBack }: AILogCreatorProps) => {
               <div className="grid grid-cols-3 gap-2 mb-4">
                 {photos.map((photo, index) => (
                   <div key={index} className="relative aspect-square rounded-lg overflow-hidden">
-                    <img src={photo} alt="旅行照片" className="w-full h-full object-cover" />
+                    <LocalImage src={photo} alt="旅行照片" className="w-full h-full object-cover" />
                     <button
                       className="absolute top-1 right-1 bg-black bg-opacity-50 rounded-full p-1"
                       onClick={() => handleRemovePhoto(index)}
@@ -419,7 +421,7 @@ const AILogCreator = ({ onBack }: AILogCreatorProps) => {
             <div className="bg-white rounded-xl overflow-hidden shadow-sm mb-4">
               {/* 封面图 */}
               <div className="relative h-48 overflow-hidden">
-                <img 
+                <LocalImage 
                   src={photos[0]} 
                   alt="封面照片" 
                   className="w-full h-full object-cover"
@@ -487,7 +489,7 @@ const AILogCreator = ({ onBack }: AILogCreatorProps) => {
                   </div>
                   <div className="md:w-1/2 h-48 rounded-lg overflow-hidden">
                     {photos.length > 1 && (
-                      <img src={photos[1]} alt="第一天照片" className="w-full h-full object-cover" />
+                      <LocalImage src={photos[1]} alt="第一天照片" className="w-full h-full object-cover" />
                     )}
                   </div>
                 </div>
@@ -516,7 +518,7 @@ const AILogCreator = ({ onBack }: AILogCreatorProps) => {
                   </div>
                   <div className="md:w-1/2 h-48 rounded-lg overflow-hidden">
                     {photos.length > 2 && (
-                      <img src={photos[2]} alt="第二天照片" className="w-full h-full object-cover" />
+                      <LocalImage src={photos[2]} alt="第二天照片" className="w-full h-full object-cover" />
                     )}
                   </div>
                 </div>
@@ -534,7 +536,7 @@ const AILogCreator = ({ onBack }: AILogCreatorProps) => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                   {generatedLog.photos.slice(0, 6).map((photo, index) => (
                     <div key={index} className="aspect-square rounded-lg overflow-hidden">
-                      <img src={photo} alt={`旅行照片${index + 1}`} className="w-full h-full object-cover" />
+                      <LocalImage src={photo} alt={`旅行照片${index + 1}`} className="w-full h-full object-cover" />
                     </div>
                   ))}
                 </div>
@@ -588,7 +590,7 @@ const RecordDetailPage = ({ onBack }: RecordDetailPageProps) => (
     <div className="relative">
       {/* 顶部图片 */}
       <div className="h-64 bg-gray-200">
-        <img 
+        <LocalImage 
           src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop" 
           alt="东京美食" 
           className="w-full h-full object-cover"
@@ -619,15 +621,11 @@ const RecordDetailPage = ({ onBack }: RecordDetailPageProps) => (
           </div>
         </div>
         
-        <div className="flex space-x-3">
-          <button className="flex flex-col items-center">
-            <Heart size={20} className="text-gray-400" />
-            <span className="text-xs text-gray-500 mt-1">24</span>
-          </button>
-          <button className="flex flex-col items-center">
-            <MessageCircle size={20} className="text-gray-400" />
-            <span className="text-xs text-gray-500 mt-1">5</span>
-          </button>
+        <div className="flex items-center text-gray-500 text-sm">
+          <Heart size={16} className="mr-1" />
+          <span className="mr-3">24</span>
+          <MessageCircle size={16} className="mr-1" />
+          <span>5</span>
         </div>
       </div>
       
@@ -646,42 +644,42 @@ const RecordDetailPage = ({ onBack }: RecordDetailPageProps) => (
         <h3 className="font-medium mb-2">照片集 (6)</h3>
         <div className="grid grid-cols-3 gap-2">
           <div className="aspect-square bg-gray-200 rounded-lg">
-            <img 
+            <LocalImage 
               src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=200&auto=format&fit=crop" 
               alt="东京美食1" 
               className="w-full h-full object-cover rounded-lg"
             />
           </div>
           <div className="aspect-square bg-gray-200 rounded-lg">
-            <img 
+            <LocalImage 
               src="https://images.unsplash.com/photo-1579027989536-b7b1f875659b?q=80&w=200&auto=format&fit=crop" 
               alt="东京美食2" 
               className="w-full h-full object-cover rounded-lg"
             />
           </div>
           <div className="aspect-square bg-gray-200 rounded-lg">
-            <img 
+            <LocalImage 
               src="https://images.unsplash.com/photo-1611143669185-af224c5e3252?q=80&w=200&auto=format&fit=crop" 
               alt="东京美食3" 
               className="w-full h-full object-cover rounded-lg"
             />
           </div>
           <div className="aspect-square bg-gray-200 rounded-lg">
-            <img 
+            <LocalImage 
               src="https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?q=80&w=200&auto=format&fit=crop" 
               alt="东京美食4" 
               className="w-full h-full object-cover rounded-lg"
             />
           </div>
           <div className="aspect-square bg-gray-200 rounded-lg">
-            <img 
+            <LocalImage 
               src="https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?q=80&w=200&auto=format&fit=crop" 
               alt="东京美食5" 
               className="w-full h-full object-cover rounded-lg"
             />
           </div>
           <div className="aspect-square bg-gray-200 rounded-lg">
-            <img 
+            <LocalImage 
               src="https://images.unsplash.com/photo-1529042410759-befb1204b468?q=80&w=200&auto=format&fit=crop" 
               alt="东京美食6" 
               className="w-full h-full object-cover rounded-lg"
