@@ -6,8 +6,13 @@ import UserCenter from './UserCenter';
 import TravelPlanResult from './TravelPlanResult';
 import LocalImage from './LocalImage';
 
+interface TravelAppProps {
+  selectedIdentities: string[];
+  selectedInterests: string[];
+}
+
 // 主应用组件
-const TravelApp = () => {
+const TravelApp: React.FC<TravelAppProps> = ({ selectedIdentities, selectedInterests }) => {
   const [activeTab, setActiveTab] = useState('home');
   const [weatherData] = useState({ temp: '24°C', condition: '晴朗' });
   const [userPreferences] = useState({
@@ -57,12 +62,12 @@ const TravelApp = () => {
     // 处理查看所有旅行
     if (showAllTrips) {
       return (
-        <div className="bg-gray-50 min-h-screen pb-20">
+        <div className="bg-blue-50 min-h-screen pb-20">
           <div className="bg-white p-4 flex items-center justify-between shadow-sm">
             <button onClick={handleBackToHome} className="p-2">
               <ChevronRight size={20} className="rotate-180" />
             </button>
-            <h1 className="text-lg font-bold">所有旅行计划</h1>
+            <h1 className="text-lg font-bold text-blue-600">所有旅行计划</h1>
             <div className="w-10"></div>
           </div>
           
@@ -70,7 +75,7 @@ const TravelApp = () => {
             {upcomingTrips.map(trip => (
               <div 
                 key={trip.id} 
-                className="bg-white rounded-lg shadow p-4"
+                className="bg-white rounded-lg shadow p-4 border border-blue-100"
                 onClick={() => handleTripDetail(trip.id)}
               >
                 <div className="flex">
@@ -105,6 +110,8 @@ const TravelApp = () => {
                 userPreferences={userPreferences}
                 upcomingTrips={upcomingTrips}
                 travelRecords={travelRecords}
+                selectedIdentities={selectedIdentities}
+                selectedInterests={selectedInterests}
                />;
       case 'plan':
         return <TravelPlan 
@@ -127,22 +134,24 @@ const TravelApp = () => {
                 userPreferences={userPreferences}
                 upcomingTrips={upcomingTrips}
                 travelRecords={travelRecords}
+                selectedIdentities={selectedIdentities}
+                selectedInterests={selectedInterests}
                />;
     }
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-16">
+    <div className="bg-blue-50 min-h-screen pb-20">
       {/* 主内容区域 */}
-      <div className="overflow-y-auto h-[calc(100vh-4rem)]">
+      <div className="overflow-y-auto h-[calc(100vh-5rem)]">
         {renderContent()}
       </div>
       
-      {/* 底部导航栏 */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 h-16 z-50 shadow-md">
-        <div className="flex justify-around items-center h-full">
+      {/* 底部导航栏 - 修复样式以确保显示 */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-blue-100 h-20 z-50 shadow-md">
+        <div className="flex justify-around items-center h-full max-w-md mx-auto">
           <TabButton 
-            icon={<Home size={22} />} 
+            icon={<Home size={24} />} 
             label="首页" 
             active={activeTab === 'home'} 
             onClick={() => {
@@ -152,7 +161,7 @@ const TravelApp = () => {
             }} 
           />
           <TabButton 
-            icon={<Compass size={22} />} 
+            icon={<Compass size={24} />} 
             label="规划" 
             active={activeTab === 'plan'} 
             onClick={() => {
@@ -162,7 +171,7 @@ const TravelApp = () => {
             }} 
           />
           <TabButton 
-            icon={<Book size={22} />} 
+            icon={<Book size={24} />} 
             label="日志" 
             active={activeTab === 'record'} 
             onClick={() => {
@@ -172,7 +181,7 @@ const TravelApp = () => {
             }} 
           />
           <TabButton 
-            icon={<User size={22} />} 
+            icon={<User size={24} />} 
             label="我的" 
             active={activeTab === 'profile'} 
             onClick={() => {
@@ -187,7 +196,7 @@ const TravelApp = () => {
   );
 };
 
-// 底部导航按钮组件
+// 底部导航按钮组件 - 更新样式
 const TabButton = ({ icon, label, active, onClick }: { 
   icon: React.ReactNode; 
   label: string; 
@@ -196,10 +205,15 @@ const TabButton = ({ icon, label, active, onClick }: {
 }) => (
   <button 
     onClick={onClick} 
-    className={`flex flex-col items-center justify-center w-full h-full ${active ? 'text-blue-500' : 'text-gray-500'}`}
+    className={`flex flex-col items-center justify-center w-full h-full p-2`}
   >
-    {icon}
-    <span className="text-xs mt-1">{label}</span>
+    <div className={`${active ? 'text-blue-600' : 'text-gray-500'}`}>
+      {icon}
+    </div>
+    <span className={`text-xs mt-1 ${active ? 'text-blue-600 font-medium' : 'text-gray-500'}`}>
+      {label}
+    </span>
+    {active && <div className="w-10 h-1 bg-blue-500 rounded-full absolute bottom-1 mx-auto"></div>}
   </button>
 );
 
@@ -212,7 +226,9 @@ const HomePage = ({
   weatherData, 
   userPreferences, 
   upcomingTrips, 
-  travelRecords 
+  travelRecords,
+  selectedIdentities,
+  selectedInterests
 }: {
   onPlanClick: () => void;
   onRecordClick: () => void;
@@ -238,6 +254,8 @@ const HomePage = ({
     destination: string;
     date: string;
   }[];
+  selectedIdentities: string[];
+  selectedInterests: string[];
 }) => {
   const [showRecommendation, setShowRecommendation] = useState(false);
 
